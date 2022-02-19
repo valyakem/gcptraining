@@ -1,12 +1,20 @@
-provider "aws"{
-  region  = "ca-central-1"
+terraform {
+  required_providers {
+    google = {
+      source = "hashicorp/google"
+      version = "3.5.0"
+    }
+  }
 }
 
-resource "aws_instance" "app_server" {
-  ami           = "ami-0aee2d0182c9054ac"
-  instance_type = "t2.micro"
+provider "google" {
+  #credentials = file("<NAME>.json")
 
-  tags = {
-    Name = "ExampleAppServerInstance"
-  }
+  project = "gcptrainingproject-340019"
+  region  = "us-central1"
+  zone    = "us-central1-c"
+}
+
+resource "google_compute_network" "vpc_network" {
+  name = "terraform-network"
 }

@@ -22,7 +22,7 @@ pipeline {
 
                 echo "Choice: ${params.CHOICE}"
 
-                echo "Password is: ${params.PASSWORD}"
+                echo "Password: ${params.PASSWORD}"
             }
         }
     }

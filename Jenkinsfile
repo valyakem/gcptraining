@@ -12,6 +12,15 @@ pipeline {
         password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
     }
     stages {
+        stage ('Checkout') {
+            steps {
+                    checkout([$class: 'GitSCM', 
+                    branches: [[name: '*/main']], 
+                    extensions: [], 
+                    userRemoteConfigs: [[credentialsId: 'githubpassword', 
+                    url: 'https://github.com/valyakem/gcptraining.git']]])
+                }
+        } 
         stage('Example') {
             steps {
                 echo "Hello ${params.PERSON}"

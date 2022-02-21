@@ -33,5 +33,14 @@ pipeline {
                 sh 'terraform apply -auto-approve'
                 }    
          }
+
+        stage('TF Apply') {
+            when {
+                branch 'destroy'
+            }
+            steps {
+                sh 'terraform destroy -auto-approve'
+                }    
+         }
     }
 }

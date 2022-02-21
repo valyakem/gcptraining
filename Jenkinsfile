@@ -17,7 +17,7 @@ pipeline {
         } 
         stage('plan') {
             steps {
-                sh 'terraform plan -auto-approve'
+                tfCmd('tfplan')
             }
         }
     }

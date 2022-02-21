@@ -11,6 +11,9 @@ pipeline {
                     userRemoteConfigs: [[credentialsId: 'githubpassword', 
                     url: 'https://github.com/valyakem/gcptraining.git']]])
                 }
+            steps {
+                sh 'echo terraform --version'
+            }
         } 
         stage('plan') {
             steps {

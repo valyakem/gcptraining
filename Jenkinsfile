@@ -21,15 +21,7 @@ pipeline {
                 branch 'plan'
             }
             steps {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-                sh 'terraform plan -out myplan'
-=======
                 sh 'terraform plan'
->>>>>>> Stashed changes
-=======
-                sh 'terraform plan'
->>>>>>> 00b68aa0fc6847f5275e2ce6790deb8a2514cccb
                 }    
          }
 
@@ -39,13 +31,6 @@ pipeline {
             }
             steps {
                 sh 'terraform apply -auto-approve'
-<<<<<<< HEAD
-                sh 'terraform destroy'
-<<<<<<< HEAD
-=======
-=======
-                sh 'terraform destroy -auto-approve'
->>>>>>> 4642af6c4731e7b29dff19d77288554887a5303e
                 }    
          }
 
@@ -54,25 +39,8 @@ pipeline {
                 branch 'destroy'
             }
             steps {
-                sh 'echo destroy files'
-                sh 'terraform init'
-                sh 'terraform destroy -auto-approve'
->>>>>>> 00b68aa0fc6847f5275e2ce6790deb8a2514cccb
-                }    
-         }
-         
-<<<<<<< Updated upstream
-=======
-
-        stage('TF Destroy') {
-            when {
-                branch 'destroy'
-            }
-            steps {
-                sh 'echo destroy files'
                 sh 'terraform destroy -auto-approve'
                 }    
          }
->>>>>>> Stashed changes
     }
 }

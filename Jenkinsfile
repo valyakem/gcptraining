@@ -39,9 +39,13 @@ pipeline {
             }
             steps {
                 sh 'terraform apply -auto-approve'
+<<<<<<< HEAD
                 sh 'terraform destroy'
 <<<<<<< HEAD
 =======
+=======
+                sh 'terraform destroy -auto-approve'
+>>>>>>> 4642af6c4731e7b29dff19d77288554887a5303e
                 }    
          }
 

@@ -40,6 +40,7 @@ pipeline {
             }
             steps {
                 sh 'echo destroy files'
+                sh 'terraform init'
                 sh 'terraform destroy -auto-approve'
                 }    
          }

@@ -34,7 +34,7 @@ pipeline {
                 }    
          }
 
-        stage('TF Apply') {
+        stage('TF Destroy') {
             when {
                 branch 'destroy'
             }

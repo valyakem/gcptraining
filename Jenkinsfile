@@ -20,7 +20,8 @@ pipeline {
                 branch 'plan'
             }
             steps {
-                sh 'terraform plan -out myplan'
+                sh 'terraform init'
+                sh 'terraform plan'
                 }    
          }
 

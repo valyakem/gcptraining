@@ -11,37 +11,37 @@ pipeline {
                     userRemoteConfigs: [[credentialsId: 'githubpassword', 
                     url: 'https://github.com/valyakem/gcptraining.git']]]);
 
-                    sh 'echo terraform --version'
+                    sh 'echo terraform version'
+                    sh 'terraform --version'
                 }
 
         } 
         stage('TF Plan') {
-            when {
-                branch 'plan'
-            }
+            // when {
+            //     branch 'plan'
+            // }
             steps {
-                sh 'terraform init'
                 sh 'terraform plan'
                 }    
          }
 
-        stage('TF Apply') {
-            when {
-                branch 'main'
-            }
-            steps {
-                sh 'terraform apply -auto-approve'
-                }    
-         }
+        // stage('TF Apply') {
+        //     // when {
+        //     //     branch 'main'
+        //     // }
+        //     steps {
+        //         sh 'terraform apply -auto-approve'
+        //         }    
+        //  }
 
-        stage('TF Destroy') {
-            when {
-                branch 'destroy'
-            }
-            steps {
-                sh 'terraform destroy -auto-approve'
-                sh 'destroy completed'
-                }    
-         }
+        // stage('TF Destroy') {
+        //     // when {
+        //     //     branch 'destroy'
+        //     // }
+        //     steps {
+        //         sh 'terraform destroy -auto-approve'
+        //         sh 'destroy completed'
+        //         }    
+        //  }
     }
 }

@@ -17,8 +17,13 @@ pipeline {
         } 
         stage('TF Plan') {
             steps {
-                sh 'terraform init'
                 sh 'terraform plan -out myplan'
+                }    
+         }
+
+        stage('TF Plan') {
+            steps {
+                sh 'terraform apply myplan'
                 }    
          }
     }

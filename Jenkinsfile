@@ -15,10 +15,11 @@ pipeline {
                 }
 
         } 
-        stage('plan') {
+        stage('TF Plan') {
             steps {
-                tfCmd('tfplan')
-            }
-        }
+                sh 'terraform init'
+                sh 'terraform plan -out myplan'
+                }    
+         }
     }
 }

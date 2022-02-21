@@ -16,12 +16,18 @@ pipeline {
 
         } 
         stage('TF Plan') {
+            when {
+                branch 'plan'
+            }
             steps {
                 sh 'terraform plan -out myplan'
                 }    
          }
 
         stage('TF Apply') {
+            when {
+                branch 'main'
+            }
             steps {
                 sh 'terraform apply -auto-approve'
                 }    

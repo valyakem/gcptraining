@@ -16,14 +16,32 @@ pipeline {
 
         } 
         stage('TF Plan') {
+            when {
+                branch 'plan'
+            }
             steps {
-                sh 'terraform plan -out myplan'
+                sh 'terraform init'
+                sh 'terraform plan'
                 }    
          }
 
         stage('TF Apply') {
+            when {
+                branch 'main'
+            }
             steps {
                 sh 'terraform apply -auto-approve'
+                }    
+         }
+
+        stage('TF Destroy') {
+            when {
+                branch 'destroy'
+            }
+            steps {
+                sh 'echo destroy files'
+                sh 'terraform init'
+                sh 'terraform destroy -auto-approve'
                 }    
          }
     }

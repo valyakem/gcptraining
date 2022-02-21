@@ -39,6 +39,7 @@ pipeline {
                 branch 'destroy'
             }
             steps {
+                sh 'echo destroy files'
                 sh 'terraform destroy -auto-approve'
                 }    
          }

@@ -9,11 +9,11 @@ pipeline {
                     branches: [[name: '*/main']], 
                     extensions: [], 
                     userRemoteConfigs: [[credentialsId: 'githubpassword', 
-                    url: 'https://github.com/valyakem/gcptraining.git']]])
+                    url: 'https://github.com/valyakem/gcptraining.git']]]);
+
+                    sh 'echo terraform --version'
                 }
-            steps {
-                sh 'echo terraform --version'
-            }
+
         } 
         stage('plan') {
             steps {

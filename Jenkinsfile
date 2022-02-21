@@ -21,9 +21,9 @@ pipeline {
                 }    
          }
 
-        stage('TF Plan') {
+        stage('TF Apply') {
             steps {
-                sh 'terraform apply myplan'
+                sh 'terraform apply myplan -auto-approve'
                 }    
          }
     }

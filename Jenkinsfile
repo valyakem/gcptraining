@@ -11,6 +11,7 @@ pipeline {
                     userRemoteConfigs: [[credentialsId: 'githubpassword', 
                     url: 'https://github.com/valyakem/gcptraining.git']]]);
 
+                    sh 'echo terraform --version'
                     sh 'terraform --version'
                     sh 'terraform init'
                 }

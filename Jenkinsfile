@@ -18,27 +18,27 @@ pipeline {
 
         } 
         stage('TF Plan') {
-            when {
-                branch 'plan'
-            }
+            // when {
+            //     branch 'plan'
+            // }
             steps {
                 sh 'terraform plan'
                 }    
          }
 
         stage('TF Apply') {
-            when {
-                branch 'main'
-            }
+            // when {
+            //     branch 'main'
+            // }
             steps {
                 sh 'terraform apply -auto-approve'
                 }    
          }
 
         stage('TF Destroy') {
-            when {
-                branch 'destroy'
-            }
+            // when {
+            //     branch 'destroy'
+            // }
             steps {
                 sh 'terraform destroy -auto-approve'
                 sh 'Destroy completed'

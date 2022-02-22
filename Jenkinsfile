@@ -12,28 +12,39 @@ pipeline {
                     url: 'https://github.com/valyakem/gcptraining.git']]]);
 
                     sh 'echo terraform version'
+                    sh 'terraform init'
                     sh 'terraform --version'
                 }
 
         } 
-        // stage('TF Plan') {
-        //     when {
-        //         branch 'plan'
-        //     }
-        //     steps {
-        //         sh 'terraform init'
-        //         sh 'terraform plan'
-        //         }    
-        //  }
-
-        // stage('TF Apply') {
-        //     when {
-        //         branch 'main'
-        //     }
-        //     steps {
-        //         sh 'terraform apply -auto-approve'
-        //         }    
-        //  }
+        stage('TF Plan') {
+            // when {
+            //     branch 'plan'
+            // }
+            steps {
+                sh 'terraform plan'
+                }    
+         }
+          stage ('Send Aproval Email') {
+            steps {
+                mail(
+                body: "Hi ${currentBuild.fullDisplayName}, please kindly login and approve the pipeline build stage. Link to pipeline  ${env.BUILD_URL} has result ${currentBuild.result}", 
+                cc: "", 
+                from: "valentine.akem@nexgbits.com", 
+                replyTo: "valentine.akem@nexgbits.com", 
+                subject: "Test email using mailer", 
+                to: "valentine.akem@nexgbits.com"
+                )
+            }
+        }
+        stage('TF Apply') {
+            // when {
+            //     branch 'main'
+            // }
+            steps {
+                sh 'terraform apply -auto-approve'
+                }    
+         }
 
         stage('TF Destroy') {
             when {

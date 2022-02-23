@@ -1,6 +1,5 @@
 pipeline {
     agent any
-    def nbaction = "plan"
     stages {
         stage('Checkout') {
             steps {
@@ -15,9 +14,7 @@ pipeline {
         }
         stage("Terraform Action"){
             steps{
-               
-                echo "terrform action from the parameter is ${action}=${nbaction}";
-                sh ("terraform ${action}=${nbaction} -auto-approve");
+                sh ("terraform plan");
             }
         }
     }

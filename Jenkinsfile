@@ -34,7 +34,7 @@ pipeline {
                 )
             }
         }
-        stage('TF Apply') {
+        stage('TF Apply & Destroy') {
             options{
                 timeout(time: 2, unit: 'MINUTES')
                 } 
@@ -48,14 +48,14 @@ pipeline {
                 }    
          }
 
-        stage('TF Destroy') {
-            // when {
-            //     branch 'destroy'
-            // }
-            steps {
-                sh 'terraform destroy -auto-approve'
-                sh 'echo Destroy completed'
-                }    
-         }
+        // stage('TF Destroy') {
+        //     // when {
+        //     //     branch 'destroy'
+        //     // }
+        //     steps {
+        //         sh 'terraform destroy -auto-approve'
+        //         sh 'echo Destroy completed'
+        //         }    
+        //  }
     }
 }

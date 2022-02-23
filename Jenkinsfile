@@ -37,12 +37,11 @@ pipeline {
         stage('TF Apply') {
             options{
                 timeout(time: 10, unit: 'MINUTES')
-                input{
+                } 
+            input{
                     message "Should we continue?"
                     ok "Yes"
                 }
-                } 
-          
             
             steps {
                 sh 'terraform apply -auto-approve'

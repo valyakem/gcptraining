@@ -1,3 +1,35 @@
+pipeline {
+    agent any
+
+    nbaction = ''
+
+    stages {
+        stage('Checkout') {
+            steps {
+               checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'githubpassword', url: 'https://github.com/valyakem/gcptraining']]]) 
+            }
+        }
+        
+        stage("Terraform Init"){
+            steps{
+                sh ('terraform init');
+            }
+        }
+        stage("Terraform Action"){
+            steps{
+                nbaction = 'plan'
+                echo "terrform action from the parameter is ${action == nbaction}";
+                sh ("terraform ${action == nbaction} -auto-approve");
+            }
+        }
+    }
+}
+
+
+
+
+
+
 
 pipeline {
     agent any
@@ -29,42 +61,45 @@ pipeline {
                 else {
                     sh 'terraform destroy'
                 }
+
+
+
                 
             }    
          }
-        stage ('Send Aproval Email') {
-            steps {
-                mail(
-                body: "Hi ${currentBuild.fullDisplayName}, please kindly login and approve the pipeline build stage. Link to pipeline  ${env.BUILD_URL} has result ${currentBuild.result}", 
-                cc: "", 
-                from: "valentine.akem@nexgbits.com", 
-                replyTo: "valentine.akem@nexgbits.com", 
-                subject: "Test email using mailer", 
-                to: "valentine.akem@nexgbits.com"
-                )
-            }
-        }
-        stage('TF Apply') {
-            input {
-                message "Should we continue?"
-                ok "Yes"
-            }
-            // when {
-            //     branch 'main'
-            // }
-            steps {
-                sh 'terraform apply -auto-approve'
-                }    
-         }
+        // stage ('Send Aproval Email') {
+        //     steps {
+        //         mail(
+        //         body: "Hi ${currentBuild.fullDisplayName}, please kindly login and approve the pipeline build stage. Link to pipeline  ${env.BUILD_URL} has result ${currentBuild.result}", 
+        //         cc: "", 
+        //         from: "valentine.akem@nexgbits.com", 
+        //         replyTo: "valentine.akem@nexgbits.com", 
+        //         subject: "Test email using mailer", 
+        //         to: "valentine.akem@nexgbits.com"
+        //         )
+        //     }
+        // }
+        // stage('TF Apply') {
+        //     input {
+        //         message "Should we continue?"
+        //         ok "Yes"
+        //     }
+        //     // when {
+        //     //     branch 'main'
+        //     // }
+        //     steps {
+        //         sh 'terraform apply -auto-approve'
+        //         }    
+        //  }
 
-        stage('TF Destroy') {
-            // when {
-            //     branch 'destroy'
-            // }
-            steps {
-                sh 'terraform destroy -auto-approve'
-                sh 'echo Destroy completed'
-                }    
-         }
+        // stage('TF Destroy') {
+        //     // when {
+        //     //     branch 'destroy'
+        //     // }
+        //     steps {
+        //         sh 'terraform destroy -auto-approve'
+        //         sh 'echo Destroy completed'
+        //         }    
+        //  }
     }
 }

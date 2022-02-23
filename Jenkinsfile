@@ -38,14 +38,11 @@ pipeline {
             options{
                 time: 1, unit: 'MINUTES'
                 } 
-                input{
+            input{
                     message "Should we continue?"
                     ok "Yes"
                 }
             
-            // when {
-            //     branch 'main'
-            // }
             steps {
                 sh 'terraform apply -auto-approve'
                 }    

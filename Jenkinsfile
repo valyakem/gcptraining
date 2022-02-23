@@ -1,31 +1,3 @@
-// pipeline {
-//     agent any
-//     stages {
-//         stage('Checkout') {
-//             steps {
-//                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'githubpassword', url: 'https://github.com/valyakem/gcptraining']]]) 
-//             }
-//         }
-        
-//         stage("Terraform Init"){
-//             steps{
-//                 sh ('terraform init');
-//             }
-//         }
-//         stage("Terraform Action"){
-//             steps{
-//                 sh ("terraform plan");
-//             }
-//         }
-//     }
-// }
-
-
-
-
-
-
-
 pipeline {
     agent any
 
@@ -63,10 +35,10 @@ pipeline {
             }
         }
         stage('TF Apply') {
-            timeout(time: 1, unit: 'MINUTES') {
-                  input {
-                message "Should we continue?"
-                ok "Yes"
+            options(time: 1, unit: 'MINUTES') {
+                input {
+                    message "Should we continue?"
+                    ok "Yes"
                 }
             }
             // when {

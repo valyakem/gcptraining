@@ -35,12 +35,14 @@ pipeline {
             }
         }
         stage('TF Apply') {
-            options(time: 1, unit: 'MINUTES') {
-                input {
+            options{
+                time: 1, unit: 'MINUTES'
+                } 
+                input{
                     message "Should we continue?"
                     ok "Yes"
                 }
-            }
+            
             // when {
             //     branch 'main'
             // }

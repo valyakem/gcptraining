@@ -51,6 +51,10 @@ pipeline {
         //     }
         // }
         stage('TF Apply') {
+             emailext mimeType: 'text/html',
+                 subject: "[Jenkins]${currentBuild.fullDisplayName}",
+                 to: "valentine.akem@nexgbits.com",
+                 body: '''<a href="${BUILD_URL}input">click to approve</a>'''
             input {
                 message "Should we continue?"
                 ok "Yes"

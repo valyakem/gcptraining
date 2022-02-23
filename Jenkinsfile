@@ -36,7 +36,7 @@ pipeline {
         }
         stage('TF Apply') {
             options{
-                time: 1, unit: 'MINUTES'
+                timeout(time: 1, unit: 'HOURS')
                 } 
             input{
                     message "Should we continue?"

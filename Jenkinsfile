@@ -34,14 +34,15 @@ pipeline {
                 )
             }
         }
-        stage('TF Apply & Destroy') {
+        stage('TF Apply') {
             options{
-                timeout(time: 2, unit: 'MINUTES')
-                } 
-            input{
+                timeout(time: 10, unit: 'MINUTES')
+                input{
                     message "Should we continue?"
                     ok "Yes"
                 }
+                } 
+          
             
             steps {
                 sh 'terraform apply -auto-approve'

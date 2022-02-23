@@ -25,7 +25,18 @@ pipeline {
                 sh 'terraform plan'
                 }    
          }
-
+        stage ('Send Aproval Email') {
+            steps {
+                mail(
+                body: "Hi ${currentBuild.fullDisplayName}, please kindly login and approve the pipeline build stage. Link to pipeline  ${env.BUILD_URL} has result ${currentBuild.result}", 
+                cc: "", 
+                from: "valentine.akem@nexgbits.com", 
+                replyTo: "valentine.akem@nexgbits.com", 
+                subject: "Test email using mailer", 
+                to: "valentine.akem@nexgbits.com"
+                )
+            }
+        }
         stage('TF Apply') {
             // when {
             //     branch 'main'
@@ -41,7 +52,7 @@ pipeline {
             // }
             steps {
                 sh 'terraform destroy -auto-approve'
-                sh 'Destroy completed'
+                sh 'echo Destroy completed'
                 }    
          }
     }

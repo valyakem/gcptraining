@@ -20,10 +20,10 @@ pipeline {
         } 
         stage('TF Plan') {
             steps {
-                if (CURRENT_BRANCH == 'plan') {
+                if (env.BRANCH_NAME == 'plan') {
                     sh 'terraform plan'
                     }
-                else if(CURRENT_BRANCH == 'main') {
+                else if(env.BRANCH_NAME == 'main') {
                     sh 'terraform apply'
                 }
                 else {

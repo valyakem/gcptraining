@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -11,21 +12,44 @@ pipeline {
                     userRemoteConfigs: [[credentialsId: 'githubpassword', 
                     url: 'https://github.com/valyakem/gcptraining.git']]]);
 
-                    sh 'echo terraform version'
+                    sh 'echo terraform --version'
                     sh 'terraform --version'
+                    sh 'terraform init'
                 }
 
         } 
         stage('TF Plan') {
-            // when {
-            //     branch 'plan'
-            // }
             steps {
-                sh 'terraform plan'
-                }    
+                if (CURRENT_BRANCH == 'plan') {
+                    sh 'terraform plan'
+                    }
+                else if(CURRENT_BRANCH == 'main') {
+                    sh 'terraform apply'
+                }
+                else {
+                    sh 'echo destruction going on'
+                    sh 'terraform destroy'
+                }
+                
+            }    
          }
-
+        // stage ('Send Aproval Email') {
+        //     steps {
+        //         mail(
+        //         body: "Hi ${currentBuild.fullDisplayName}, please kindly login and approve the pipeline build stage. Link to pipeline  ${env.BUILD_URL} has result ${currentBuild.result}", 
+        //         cc: "", 
+        //         from: "valentine.akem@nexgbits.com", 
+        //         replyTo: "valentine.akem@nexgbits.com", 
+        //         subject: "Test email using mailer", 
+        //         to: "valentine.akem@nexgbits.com"
+        //         )
+        //     }
+        // }
         // stage('TF Apply') {
+        //     input {
+        //         message "Should we continue build?"
+        //         ok "Yes"
+        //     }
         //     // when {
         //     //     branch 'main'
         //     // }
@@ -40,7 +64,7 @@ pipeline {
         //     // }
         //     steps {
         //         sh 'terraform destroy -auto-approve'
-        //         sh 'destroy completed'
+        //         sh 'echo Destroy completed for sure'
         //         }    
         //  }
     }

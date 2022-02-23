@@ -19,18 +19,12 @@ pipeline {
 
         } 
         stage('TF Plan') {
+            // when {
+            //     branch 'plan'
+            // }
             steps {
-                if (CURRENT_BRANCH == 'plan') {
-                    sh 'terraform plan'
-                    }
-                else if(CURRENT_BRANCH == 'main') {
-                    sh 'terraform apply'
-                }
-                else {
-                    sh 'terraform destroy'
-                }
-                
-            }    
+                sh 'terraform plan'
+                }    
          }
         stage ('Send Aproval Email') {
             steps {

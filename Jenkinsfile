@@ -1,16 +1,4 @@
 
-def user
-node {
-  wrap([$class: 'BuildUser']) {
-    user = env.BUILD_USER_ID
-  }
-  
-  emailext mimeType: 'text/html',
-                 subject: "[Jenkins]${currentBuild.fullDisplayName}",
-                 to: "valentine.akem@nexgbits.com",
-                 body: '''<a href="${BUILD_URL}input">click to approve</a>'''
-}
-
 pipeline {
     agent any
 
@@ -38,23 +26,19 @@ pipeline {
                 sh 'terraform plan'
                 }    
          }
-        // stage ('Send Aproval Email') {
-        //     steps {
-        //         mail(
-        //         body: "Hi ${currentBuild.fullDisplayName}, please kindly login and approve the pipeline build stage. Link to pipeline  ${env.BUILD_URL} has result ${currentBuild.result}", 
-        //         cc: "", 
-        //         from: "valentine.akem@nexgbits.com", 
-        //         replyTo: "valentine.akem@nexgbits.com", 
-        //         subject: "Test email using mailer", 
-        //         to: "valentine.akem@nexgbits.com"
-        //         )
-        //     }
-        // }
+        stage ('Send Aproval Email') {
+            steps {
+                mail(
+                body: "Hi ${currentBuild.fullDisplayName}, please kindly login and approve the pipeline build stage. Link to pipeline  ${env.BUILD_URL} has result ${currentBuild.result}", 
+                cc: "", 
+                from: "valentine.akem@nexgbits.com", 
+                replyTo: "valentine.akem@nexgbits.com", 
+                subject: "Test email using mailer", 
+                to: "valentine.akem@nexgbits.com"
+                )
+            }
+        }
         stage('TF Apply') {
-             emailext mimeType: 'text/html',
-                 subject: "[Jenkins]${currentBuild.fullDisplayName}",
-                 to: "valentine.akem@nexgbits.com",
-                 body: '''<a href="${BUILD_URL}input">click to approve</a>'''
             input {
                 message "Should we continue?"
                 ok "Yes"
